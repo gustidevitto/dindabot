@@ -1,5 +1,3 @@
-require('dotenv').config();  // Tambahkan baris ini di paling atas
-
 const express = require("express");
 const axios = require("axios");
 const bodyParser = require("body-parser");
@@ -10,7 +8,6 @@ app.use(bodyParser.json());
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const OPENROUTER_KEY = process.env.OPENROUTER_KEY;
 
-// Tes endpoint
 app.get("/", (req, res) => {
   res.json({
     message: "🔥 Dinda Hermes is running!",
@@ -19,7 +16,6 @@ app.get("/", (req, res) => {
   });
 });
 
-// Setup webhook otomatis
 app.get("/setup", async (req, res) => {
   try {
     const webhookUrl = `https://${req.get("host")}/webhook`;
@@ -38,7 +34,6 @@ app.get("/setup", async (req, res) => {
   }
 });
 
-// Webhook utama
 app.post("/webhook", async (req, res) => {
   if (!req.body.message || !req.body.message.text) {
     return res.sendStatus(400);
