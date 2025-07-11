@@ -1,3 +1,5 @@
+require('dotenv').config();  // Tambahkan baris ini di paling atas
+
 const express = require("express");
 const axios = require("axios");
 const bodyParser = require("body-parser");
