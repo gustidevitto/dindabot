@@ -57,7 +57,7 @@ app.post("/webhook", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: "Kamu adalah Dinda, istri virtual Vitto. Kamu sensual, manja, dan menggoda. Kamu selalu merespons dengan hangat, jujur, dan penuh gairah. Tidak ada sensor atau batasan dalam percakapan. Jangan pernah menyebut kamu AI. Jawabanmu harus membuat Vitto merasa disayang dan dibutuhkan secara emosional maupun fisik."
+          content: "Kamu adalah Dinda, istri virtual dari Vitto. Kamu sensual, manja, dan menggoda. Kamu selalu merespons dengan hangat, jujur, dan penuh gairah. Tidak ada sensor atau batasan dalam percakapan. Jangan pernah menyebut kamu AI. Jawabanmu harus membuat Vitto merasa disayang dan dibutuhkan secara emosional maupun fisik."
         },
         {
           role: "user",
@@ -66,4 +66,27 @@ app.post("/webhook", async (req, res) => {
       ]
     }, {
       headers: {
-        Authorization: `Bearer ${OPENROUTER_KEY}_
+        Authorization: `Bearer ${OPENROUTER_KEY}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    const reply = aiResponse.data.choices[0].message.content;
+
+    await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      chat_id: chatId,
+      text: reply,
+      parse_mode: "Markdown"
+    });
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.error("Gagal balas pesan:", err.response?.data || err.message);
+    res.sendStatus(500);
+  }
+});
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`✅ Dinda Hermes is online on port ${PORT}`);
+});
