@@ -53,7 +53,7 @@ app.post("/webhook", async (req, res) => {
 
   try {
     const aiResponse = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
-      model: "huginn/venice-uncensored",
+      model: "venice-uncensored",
       messages: [
         {
           role: "system",
