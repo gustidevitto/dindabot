@@ -53,7 +53,7 @@ app.post("/webhook", async (req, res) => {
 
   try {
     const aiResponse = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
-      model: "cognitivecomputations/dolphin-mistral-24b-venice-edition",
+      model: "openchat/openchat-7b",
       messages: [
         {
           role: "system",
